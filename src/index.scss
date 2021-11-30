@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+$colorSuccess: #33bb33;
+$colorDanger: red;
+$colorPrimary: #0d6efd;
+$colorLight: #f8f9fa;
+html {
+  height: 100%;
+}
+// th, td {
+//   display: flex;
+// }
+.network {
+  font-weight: bold;
+
+  img {
+    width: 50px;
+    margin-right: 10px;
+  }
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  /* background: #70bg32; */
+  background-repeat: no-repeat;
+  background: #fff;
+}
+
+header {
+  padding: 10px;
+  border-bottom: 1px solid #999;
+  display: flex;
+  justify-content: space-between;
+  h1 {
+    font-family: "Montserrat";
+    display: flex;
+    font-size: 24px;
+    color: #334152;
+    margin: 0;
+  }
+}
+h2 {
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  padding: 10px;
+  margin: 0;
+}
+
+.container {
+  margin-top: 20px;
+  padding: 0;
+}
+.navbar {
+  background-size: 100% 640px;
+  background-repeat: no-repeat;
+  background: radial-gradient(#7baafd 10%, #2362d1 100%);
+}
+
+body {
+  background: radial-gradient(#7baafd 10%, #2362d1 100%);
+}
+.navbar {
+  background: none;
+}
+
+.table {
+  margin-bottom: 0;
+  th {
+    vertical-align: middle;
+  }
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-width: 0;
+}
+th,
+td {
+  white-space: nowrap;
+}
+
+@mixin buttonStyle($color) {
+  &.disabled,
+  &:disabled {
+    background: $color;
+    border-color: $color;
+    opacity: 0.5;
+  }
+
+  &:focus {
+    box-shadow: 0 0 3pt 2pt lighten($color, 20);
+  }
+
+  border: 0;
+  background-size: 100%;
+  background-image: linear-gradient(
+    -225deg,
+    darken($color, 5),
+    lighten($color, 10)
+  );
+  position: relative;
+  z-index: 0;
+
+  &:before {
+    border-radius: inherit;
+    background-image: linear-gradient(
+      -45deg,
+      darken($color, 5),
+      lighten($color, 10)
+    );
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: -1;
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  &:hover:before {
+    opacity: 1;
+  }
+}
+
+.bg-success {
+  background-color: $colorSuccess !important;
+}
+
+.btn.btn-success {
+  @include buttonStyle($colorSuccess);
+}
+
+.modal .btn {
+  margin: 0 10px;
+}
+// .btn.btn-light {
+//   @include buttonStyle($colorLight);
+// }
+.navbar-brand {
+  font-size: 28px;
+}
+.btn.btn-danger {
+  color: #fff;
+  @include buttonStyle($colorDanger);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.dropdown-menu .nav-link {
+  width: 200px;
+}
+
+.nav-link {
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.jumbotron {
+  background-color: #fff;
+  min-height: none;
+  align-items: initial;
+  justify-content: initial;
+}
+td,
+th {
+  display: table-row;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    background-color: transparent;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  td,
+  th {
+    display: table-cell;
+  }
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-wrapper {
+  padding: 0;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.container {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  max-width: 90%;
+}
+
+nav .container {
+  background-color: initial;
+}
+
+th {
+  color: #3e4b5b;
+  font-family: "Montserrat";
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.table > :not(:last-child) > :last-child > * {
+  border-bottom: 1px solid #999;
+}
+
+.modal-footer {
+  justify-content: space-between;
+}
+// .navbar {
+//   background: none;
+// }
+
+.btn.btn-primary {
+  border: none;
+  border-radius: 2em;
+  background-color: #1bbc9d;
+}
+h2 {
+}
+
+.navbar-brand img {
+  width: 28px;
+  position: relative;
+  top: 2px;
+  vertical-align: top;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 26px;
+  font-family: "Sarabun", sans-serif;
+}

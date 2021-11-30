@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import NetworkChooser from "./NetworkChooser";
+import {ETHEREUM_CHAIN_ID} from "./constants"
+import Receive from "./Receive";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+export default function App(props) {
+  return <div>
+    <div className="jumbotron">
+      <div className="container">
+      {Page()}
+      </div>
     </div>
-  );
+  </div>;
 }
 
-export default App;
+function Page() {
+  const [value, setValue] = useState();
+  const [destinationChainId, setDestinationChainId] = useState(ETHEREUM_CHAIN_ID);
+  const [page, setPage] = useState("NetworkChooser");
+  switch (page) {
+    case "NetworkChooser":
+      return <NetworkChooser destinationChainId={destinationChainId} setDestinationChainId={setDestinationChainId} setPage={setPage} value={value}  setValue={setValue}/>
+    case "Receive":
+      return <Receive setPage={setPage} destinationChainId={destinationChainId} value={value}/>
+    default:
+      return null
+  }
+}
+
