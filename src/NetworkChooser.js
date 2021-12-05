@@ -2,7 +2,7 @@ import "./App.css";
 import { useRef } from "react";
 import { useFetch } from "use-http"
 import { ArrowDown } from "react-feather";
-import {ETHEREUM_CHAIN_ID, POLYGON_CHAIN_ID} from "./constants"
+import {ETHEREUM_CHAIN_ID, POLYGON_CHAIN_ID, BACKEND_ADDRESS} from "./constants"
 import TokenAmountInput from "./TokenAmountInput";
 import { useState } from "react";
 import ethereumIcon from "./images/ethereum-icon.svg";
@@ -14,7 +14,7 @@ export default function NetworkChooser(props) {
     e.preventDefault();
     setDestinationChainId(destinationChainId === ETHEREUM_CHAIN_ID ? POLYGON_CHAIN_ID : ETHEREUM_CHAIN_ID);
   };
-   const { response, post } = useFetch('http://localhost:8080')
+   const { response, post } = useFetch(BACKEND_ADDRESS)
   const inputAmountRef = useRef(null);
   const [destinationAddress, setDestinationAddress] = useState("");
   async function startTransfer(e) {
