@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import {PROD} from "./constants"
 import "./index.scss";
 
 window.enterApp = function () {
@@ -20,6 +21,6 @@ document.addEventListener(
   false
 );
 
-// if (!PROD) {
-window.enterApp();
-// }
+if (!PROD) {
+  window.enterApp();
+}
