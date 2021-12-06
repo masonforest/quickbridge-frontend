@@ -1,7 +1,5 @@
-import "./App.css";
 import { useState } from "react";
 import NetworkChooser from "./NetworkChooser";
-import {ETHEREUM_CHAIN_ID} from "./constants"
 import Receive from "./Receive";
 
 export default function App(props) {
@@ -16,13 +14,14 @@ export default function App(props) {
 
 function Page() {
   const [value, setValue] = useState();
-  const [destinationChainId, setDestinationChainId] = useState(ETHEREUM_CHAIN_ID);
+  const [destinationChain, setDestinationChain] = useState("stellar");
+  const [destinationAddress, setDestinationAddress] = useState();
   const [page, setPage] = useState("NetworkChooser");
   switch (page) {
     case "NetworkChooser":
-      return <NetworkChooser destinationChainId={destinationChainId} setDestinationChainId={setDestinationChainId} setPage={setPage} value={value}  setValue={setValue}/>
+      return <NetworkChooser destinationChain={destinationChain} setDestinationChain={setDestinationChain} destinationAddress={destinationAddress} setDestinationAddress={setDestinationAddress} setPage={setPage} value={value}  setValue={setValue}/>
     case "Receive":
-      return <Receive setPage={setPage} destinationChainId={destinationChainId} value={value}/>
+      return <Receive setPage={setPage} destinationAddress={destinationAddress} value={value}/>
     default:
       return null
   }

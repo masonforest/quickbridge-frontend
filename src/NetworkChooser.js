@@ -1,35 +1,37 @@
 import "./App.css";
 import { useRef } from "react";
-import { useFetch } from "use-http"
 import { ArrowDown } from "react-feather";
-import {ETHEREUM_CHAIN_ID, POLYGON_CHAIN_ID, BACKEND_ADDRESS} from "./constants"
 import TokenAmountInput from "./TokenAmountInput";
-import { useState } from "react";
-import ethereumIcon from "./images/ethereum-icon.svg";
+import { QUICK_BRIDGE } from "./constants";
+import stellarIcon from "./images/stellar-icon.svg";
+import {Keypair} from "stellar-sdk"
 import polygonIcon from "./images/polygon-icon.svg";
 
 export default function NetworkChooser(props) {
-  const {setPage, value, setValue, destinationChainId, setDestinationChainId} = props
+  const {setPage, value, setValue, destinationChain, setDestinationChain, destinationAddress, setDestinationAddress} = props
   const toggle = (e) => {
     e.preventDefault();
-    setDestinationChainId(destinationChainId === ETHEREUM_CHAIN_ID ? POLYGON_CHAIN_ID : ETHEREUM_CHAIN_ID);
+    setDestinationChain(destinationChain === "stellar" ? "polygon" : "stellar");
   };
-   const { response, post } = useFetch(BACKEND_ADDRESS)
   const inputAmountRef = useRef(null);
-  const [destinationAddress, setDestinationAddress] = useState("");
-  async function startTransfer(e) {
-    e.preventDefault()
-    
-    await post('/', { destinationAddress, destinationChainId })
-    if (response.ok) setPage("Receive")
-  }
+  const startTransfer = async (e) => {
+    if(destinationChain === "stellar") {
+      setPage("Receive")
+    } else {
+      let key = Keypair.fromPublicKey(destinationAddress)
+      let tx = await QUICK_BRIDGE.send(key.rawPublicKey(), {value: value})      
+      await tx.wait()
+    }
+  };
+  
+
   return (
           <form className="d-flex  flex-column">
             <div className="d-grid gap-2 mt-2">
               <div className="row justify-content-center">
                 <div className="col-2">
-                  <Ethereum show={destinationChainId === ETHEREUM_CHAIN_ID} />
-                  <Polygon show={destinationChainId === POLYGON_CHAIN_ID} />
+                  <Stellar show={destinationChain === "stellar"} />
+                  <Polygon show={destinationChain === "polygon"} />
                 </div>
               </div>
 
@@ -42,8 +44,8 @@ export default function NetworkChooser(props) {
               </button>
               <div className="row justify-content-center mb-4">
                 <div className="col-2">
-                  <Ethereum show={destinationChainId === POLYGON_CHAIN_ID} />
-                  <Polygon show={destinationChainId === ETHEREUM_CHAIN_ID} />
+                  <Stellar show={destinationChain === "polygon"} />
+                  <Polygon show={destinationChain === "stellar"} />
                 </div>
               </div>
               <TokenAmountInput
@@ -57,7 +59,7 @@ export default function NetworkChooser(props) {
       <label htmlFor="address">Destination Address</label>
     </div>
               <button
-                onClick={startTransfer}
+                onClick={() => startTransfer()}
                 className="btn btn-primary"
                 type="button"
               >
@@ -68,7 +70,7 @@ export default function NetworkChooser(props) {
   );
 }
 
-function Ethereum(props) {
+function Stellar(props) {
   return (
     <div
       style={{
@@ -78,14 +80,12 @@ function Ethereum(props) {
     >
       <img
         style={{
-          padding: "5px 13px",
-          backgroundColor: "#ddd",
           borderRadius: "100%",
         }}
-        src={ethereumIcon}
-        alt="Ethereum"
+        src={stellarIcon}
+        alt="Stellar"
       />
-      Ethereum
+      Stellar
     </div>
   );
 }
