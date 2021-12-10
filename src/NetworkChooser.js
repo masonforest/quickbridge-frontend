@@ -18,6 +18,7 @@ export default function NetworkChooser(props) {
     if(destinationChain === "stellar") {
       setPage("Receive")
     } else {
+      await QUICK_BRIDGE.provider.send("eth_requestAccounts", [])
       let key = Keypair.fromPublicKey(destinationAddress)
       let tx = await QUICK_BRIDGE.send(key.rawPublicKey(), {value: value})      
       await tx.wait()
