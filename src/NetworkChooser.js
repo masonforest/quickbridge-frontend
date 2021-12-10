@@ -22,6 +22,9 @@ export default function NetworkChooser(props) {
       let key = Keypair.fromPublicKey(destinationAddress)
       let tx = await QUICK_BRIDGE.send(key.rawPublicKey(), {value: value})      
       await tx.wait()
+      setDestinationAddress("")
+      setValue(null)
+      inputAmountRef.current.setRawValue("");
     }
   };
   

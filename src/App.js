@@ -13,9 +13,9 @@ export default function App(props) {
 }
 
 function Page() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const [destinationChain, setDestinationChain] = useState("stellar");
-  const [destinationAddress, setDestinationAddress] = useState();
+  const [destinationAddress, setDestinationAddress] = useState("");
   const [page, setPage] = useState("NetworkChooser");
   switch (page) {
     case "NetworkChooser":
