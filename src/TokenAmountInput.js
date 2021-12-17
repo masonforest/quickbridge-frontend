@@ -27,7 +27,7 @@ export default forwardRef((props, ref) => {
             event.target.rawValue === ""
               ? null
               : parseEther(
-                  event.target.rawValue.replace(/^\./g, "0."),
+                  event.target.rawValue.replace(/^\./g, "0.")
                 ).toBigInt()
           );
         }}
